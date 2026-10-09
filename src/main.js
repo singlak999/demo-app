@@ -10,12 +10,15 @@ const fmt = (n) => n.toLocaleString(undefined, { style: 'currency', currency: 'U
 
 document.querySelector('#app').innerHTML = `
   <main class="wrap">
-    <h1>Finance Tracker</h1>
+    <header>
+      <h1>Finance Tracker</h1>
+      <p class="subtitle">Track income and expenses at a glance</p>
+    </header>
 
     <section class="summary">
-      <div><span>Income</span><strong id="income">$0</strong></div>
-      <div><span>Expenses</span><strong id="expenses">$0</strong></div>
-      <div><span>Balance</span><strong id="balance">$0</strong></div>
+      <div class="card"><span>Income</span><strong id="income" class="positive">$0</strong></div>
+      <div class="card"><span>Expenses</span><strong id="expenses" class="negative">$0</strong></div>
+      <div class="card highlight"><span>Balance</span><strong id="balance">$0</strong></div>
     </section>
 
     <form id="txn-form">
@@ -29,6 +32,7 @@ document.querySelector('#app').innerHTML = `
     </form>
 
     <ul id="txn-list"></ul>
+    <p id="empty-state" class="empty-state">No transactions yet — add your first one above.</p>
   </main>
 `
 
@@ -37,6 +41,7 @@ const expensesEl = document.querySelector('#expenses')
 const balanceEl = document.querySelector('#balance')
 const listEl = document.querySelector('#txn-list')
 const form = document.querySelector('#txn-form')
+const emptyStateEl = document.querySelector('#empty-state')
 
 function render() {
   const income = transactions.filter((t) => t.type === 'income').reduce((s, t) => s + t.amount, 0)
@@ -45,6 +50,8 @@ function render() {
   incomeEl.textContent = fmt(income)
   expensesEl.textContent = fmt(expenses)
   balanceEl.textContent = fmt(income - expenses)
+
+  emptyStateEl.style.display = transactions.length ? 'none' : 'block'
 
   listEl.innerHTML = transactions
     .map(
