@@ -9,31 +9,77 @@ let transactions = load()
 const fmt = (n) => n.toLocaleString(undefined, { style: 'currency', currency: 'USD' })
 
 document.querySelector('#app').innerHTML = `
-  <main class="wrap">
-    <header>
-      <h1>Finance Tracker</h1>
-      <p class="subtitle">Track income and expenses at a glance</p>
-    </header>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <span class="brand">Ledger<span class="brand-accent">IQ</span></span>
+      <nav class="nav-links">
+        <a href="#product">Product</a>
+        <a href="#features">Features</a>
+        <a href="#app">Launch App</a>
+      </nav>
+    </div>
+  </header>
 
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="eyebrow">Financial Operations Platform</span>
+      <h1>Clarity over every dollar that moves through your business.</h1>
+      <p>LedgerIQ gives finance teams a single, real-time view of income and expenses — built for the speed modern operations demand.</p>
+      <a class="cta" href="#app">Launch the App &rarr;</a>
+    </div>
+  </section>
+
+  <section id="features" class="features">
+    <div class="feature"><strong>Real-time balance</strong><span>Always know your net position.</span></div>
+    <div class="feature"><strong>Zero setup</strong><span>No accounts, no onboarding friction.</span></div>
+    <div class="feature"><strong>Private by default</strong><span>Data stays on-device.</span></div>
+  </section>
+
+  <main class="wrap" id="app">
     <section class="summary">
-      <div class="card"><span>Income</span><strong id="income" class="positive">$0</strong></div>
-      <div class="card"><span>Expenses</span><strong id="expenses" class="negative">$0</strong></div>
-      <div class="card highlight"><span>Balance</span><strong id="balance">$0</strong></div>
+      <div class="card">
+        <span>Total Income</span>
+        <strong id="income" class="positive">$0</strong>
+      </div>
+      <div class="card">
+        <span>Total Expenses</span>
+        <strong id="expenses" class="negative">$0</strong>
+      </div>
+      <div class="card">
+        <span>Net Balance</span>
+        <strong id="balance">$0</strong>
+      </div>
     </section>
 
-    <form id="txn-form">
-      <input id="desc" type="text" placeholder="Description" required />
-      <input id="amount" type="number" step="0.01" placeholder="Amount" required />
-      <select id="type">
-        <option value="income">Income</option>
-        <option value="expense">Expense</option>
-      </select>
-      <button type="submit">Add</button>
-    </form>
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Transactions</h2>
+      </div>
 
-    <ul id="txn-list"></ul>
-    <p id="empty-state" class="empty-state">No transactions yet — add your first one above.</p>
+      <form id="txn-form">
+        <input id="desc" type="text" placeholder="Description" required />
+        <input id="amount" type="number" step="0.01" placeholder="Amount" required />
+        <select id="type">
+          <option value="income">Income</option>
+          <option value="expense">Expense</option>
+        </select>
+        <button type="submit">Add Entry</button>
+      </form>
+
+      <div class="table">
+        <div class="table-row table-head">
+          <span>Description</span>
+          <span>Type</span>
+          <span class="amount-col">Amount</span>
+          <span></span>
+        </div>
+        <div id="txn-list"></div>
+        <p id="empty-state" class="empty-state">No transactions recorded.</p>
+      </div>
+    </section>
   </main>
+
+  <footer class="footer">LedgerIQ &mdash; internal demo build</footer>
 `
 
 const incomeEl = document.querySelector('#income')
@@ -56,11 +102,12 @@ function render() {
   listEl.innerHTML = transactions
     .map(
       (t, i) => `
-      <li class="${t.type}">
+      <div class="table-row">
         <span>${t.desc}</span>
-        <span>${t.type === 'expense' ? '-' : '+'}${fmt(t.amount)}</span>
-        <button data-index="${i}" class="remove">&times;</button>
-      </li>`
+        <span><span class="tag ${t.type}">${t.type === 'expense' ? 'Expense' : 'Income'}</span></span>
+        <span class="amount-col ${t.type}">${t.type === 'expense' ? '-' : '+'}${fmt(t.amount)}</span>
+        <button data-index="${i}" class="remove" title="Delete">&times;</button>
+      </div>`
     )
     .join('')
 }
