@@ -1,21 +1,14 @@
 import './style.css'
 
-const STORAGE_KEY = 'finance-tracker-transactions'
-const load = () => JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
-const save = (txns) => localStorage.setItem(STORAGE_KEY, JSON.stringify(txns))
-
-let transactions = load()
-
-const fmt = (n) => n.toLocaleString(undefined, { style: 'currency', currency: 'USD' })
-
 document.querySelector('#app').innerHTML = `
   <header class="topbar">
     <div class="topbar-inner">
       <span class="brand">Ledger<span class="brand-accent">IQ</span></span>
       <nav class="nav-links">
-        <a href="#product">Product</a>
-        <a href="#features">Features</a>
-        <a href="#app">Launch App</a>
+        <a href="#solutions">Solutions</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#testimonials">Customers</a>
+        <a href="#contact" class="nav-cta">Request a demo</a>
       </nav>
     </div>
   </header>
@@ -24,112 +17,90 @@ document.querySelector('#app').innerHTML = `
     <div class="hero-inner">
       <span class="eyebrow">Financial Operations Platform</span>
       <h1>Clarity over every dollar that moves through your business.</h1>
-      <p>LedgerIQ gives finance teams a single, real-time view of income and expenses — built for the speed modern operations demand.</p>
-      <a class="cta" href="#app">Launch the App &rarr;</a>
+      <p>LedgerIQ unifies cash flow, reconciliation, and reporting into one real-time platform — built for finance teams who can't afford to wait on month-end.</p>
+      <div class="hero-ctas">
+        <a class="cta" href="#contact">Request a demo &rarr;</a>
+        <a class="cta-secondary" href="#solutions">Explore solutions</a>
+      </div>
     </div>
   </section>
 
-  <section id="features" class="features">
-    <div class="feature"><strong>Real-time balance</strong><span>Always know your net position.</span></div>
-    <div class="feature"><strong>Zero setup</strong><span>No accounts, no onboarding friction.</span></div>
-    <div class="feature"><strong>Private by default</strong><span>Data stays on-device.</span></div>
+  <section class="logos">
+    <span>Trusted by finance teams at</span>
+    <div class="logo-row">
+      <span>Northwind Capital</span>
+      <span>Vantage Holdings</span>
+      <span>Carrow &amp; Pine</span>
+      <span>Meridian Group</span>
+      <span>Atlas Partners</span>
+    </div>
   </section>
 
-  <main class="wrap" id="app">
-    <section class="summary">
-      <div class="card">
-        <span>Total Income</span>
-        <strong id="income" class="positive">$0</strong>
-      </div>
-      <div class="card">
-        <span>Total Expenses</span>
-        <strong id="expenses" class="negative">$0</strong>
-      </div>
-      <div class="card">
-        <span>Net Balance</span>
-        <strong id="balance">$0</strong>
-      </div>
-    </section>
+  <section class="stats">
+    <div class="stat"><strong>$4.2B+</strong><span>Transactions processed annually</span></div>
+    <div class="stat"><strong>99.98%</strong><span>Platform uptime</span></div>
+    <div class="stat"><strong>6 hrs</strong><span>Avg. close-cycle reduction</span></div>
+    <div class="stat"><strong>340+</strong><span>Finance teams onboarded</span></div>
+  </section>
 
-    <section class="panel">
-      <div class="panel-header">
-        <h2>Transactions</h2>
+  <section id="solutions" class="solutions">
+    <h2>Built for every stage of your financial operations</h2>
+    <div class="solution-grid">
+      <div class="solution-card">
+        <span class="icon">&#128202;</span>
+        <h3>Real-time reporting</h3>
+        <p>Live income, expense, and cash-position dashboards across every entity and currency.</p>
       </div>
-
-      <form id="txn-form">
-        <input id="desc" type="text" placeholder="Description" required />
-        <input id="amount" type="number" step="0.01" placeholder="Amount" required />
-        <select id="type">
-          <option value="income">Income</option>
-          <option value="expense">Expense</option>
-        </select>
-        <button type="submit">Add Entry</button>
-      </form>
-
-      <div class="table">
-        <div class="table-row table-head">
-          <span>Description</span>
-          <span>Type</span>
-          <span class="amount-col">Amount</span>
-          <span></span>
-        </div>
-        <div id="txn-list"></div>
-        <p id="empty-state" class="empty-state">No transactions recorded.</p>
+      <div class="solution-card">
+        <span class="icon">&#128272;</span>
+        <h3>Reconciliation</h3>
+        <p>Automated matching against bank feeds, with full audit trails for compliance teams.</p>
       </div>
-    </section>
-  </main>
+      <div class="solution-card">
+        <span class="icon">&#9881;&#65039;</span>
+        <h3>Workflow automation</h3>
+        <p>Approval chains, recurring entries, and close-cycle checklists that run themselves.</p>
+      </div>
+      <div class="solution-card">
+        <span class="icon">&#128272;</span>
+        <h3>Enterprise security</h3>
+        <p>SOC 2 Type II controls, role-based access, and full data residency options.</p>
+      </div>
+    </div>
+  </section>
 
-  <footer class="footer">LedgerIQ &mdash; internal demo build</footer>
+  <section id="how-it-works" class="how-it-works">
+    <h2>From raw transactions to board-ready insight</h2>
+    <div class="steps">
+      <div class="step"><span class="step-num">1</span><h3>Connect</h3><p>Link your bank, ERP, and payment providers in minutes.</p></div>
+      <div class="step"><span class="step-num">2</span><h3>Reconcile</h3><p>LedgerIQ categorizes and matches entries automatically.</p></div>
+      <div class="step"><span class="step-num">3</span><h3>Report</h3><p>Share live dashboards with leadership and auditors alike.</p></div>
+    </div>
+  </section>
+
+  <section id="testimonials" class="testimonials">
+    <blockquote>
+      "LedgerIQ cut our monthly close from eight days to two. It's the first finance tool our whole team actually enjoys using."
+      <footer>&mdash; VP of Finance, Meridian Group</footer>
+    </blockquote>
+  </section>
+
+  <section id="contact" class="cta-banner">
+    <h2>Ready to see LedgerIQ in action?</h2>
+    <p>Talk to our team about a tailored walkthrough for your finance organization.</p>
+    <a class="cta" href="mailto:sales@ledgeriq.example">Request a demo &rarr;</a>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">Ledger<span class="brand-accent">IQ</span></div>
+      <div class="footer-links">
+        <a href="#solutions">Solutions</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#testimonials">Customers</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <p class="footer-note">&copy; 2026 LedgerIQ. Internal demo build &mdash; not a real financial institution.</p>
+  </footer>
 `
-
-const incomeEl = document.querySelector('#income')
-const expensesEl = document.querySelector('#expenses')
-const balanceEl = document.querySelector('#balance')
-const listEl = document.querySelector('#txn-list')
-const form = document.querySelector('#txn-form')
-const emptyStateEl = document.querySelector('#empty-state')
-
-function render() {
-  const income = transactions.filter((t) => t.type === 'income').reduce((s, t) => s + t.amount, 0)
-  const expenses = transactions.filter((t) => t.type === 'expense').reduce((s, t) => s + t.amount, 0)
-
-  incomeEl.textContent = fmt(income)
-  expensesEl.textContent = fmt(expenses)
-  balanceEl.textContent = fmt(income - expenses)
-
-  emptyStateEl.style.display = transactions.length ? 'none' : 'block'
-
-  listEl.innerHTML = transactions
-    .map(
-      (t, i) => `
-      <div class="table-row">
-        <span>${t.desc}</span>
-        <span><span class="tag ${t.type}">${t.type === 'expense' ? 'Expense' : 'Income'}</span></span>
-        <span class="amount-col ${t.type}">${t.type === 'expense' ? '-' : '+'}${fmt(t.amount)}</span>
-        <button data-index="${i}" class="remove" title="Delete">&times;</button>
-      </div>`
-    )
-    .join('')
-}
-
-form.addEventListener('submit', (e) => {
-  e.preventDefault()
-  const desc = document.querySelector('#desc').value.trim()
-  const amount = parseFloat(document.querySelector('#amount').value)
-  const type = document.querySelector('#type').value
-  if (!desc || Number.isNaN(amount)) return
-
-  transactions.push({ desc, amount, type })
-  save(transactions)
-  form.reset()
-  render()
-})
-
-listEl.addEventListener('click', (e) => {
-  if (!e.target.matches('.remove')) return
-  transactions.splice(Number(e.target.dataset.index), 1)
-  save(transactions)
-  render()
-})
-
-render()
